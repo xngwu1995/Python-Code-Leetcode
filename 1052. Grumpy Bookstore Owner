@@ -1,0 +1,22 @@
+class Solution:
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], X: int) -> int:
+        sum_all = 0
+        sum_grumpy = 0
+        for i in range(X):
+            if grumpy[i] == 0:
+                sum_all += customers[i]
+            else:
+                sum_grumpy += customers[i]
+        
+        max_val = sum_grumpy
+        
+        for i in range(X,len(grumpy)):
+            if grumpy[i-X] == 1:
+                sum_grumpy -= customers[i-X]
+            if grumpy[i] == 1:
+                sum_grumpy += customers[i]
+                if sum_grumpy > max_val:
+                    max_val = sum_grumpy
+            else:
+                sum_all += customers[i]
+        return sum_all + max_val
