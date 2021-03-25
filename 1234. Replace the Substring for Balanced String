@@ -1,0 +1,29 @@
+class Solution:
+    def balancedString(self, s: str) -> int:
+        time = len(s) // 4
+        count = Counter(s)
+        d = defaultdict(int)
+        for i in ['Q','W','E','R']:
+            if count[i] > time:
+                d[i] = count[i] - time
+        l,r = 0,0
+        c = len(d)
+        res = float('inf')
+        if c == 0:return 0
+        
+        while r < len(s):
+            ch = s[r]
+            if ch in d:
+                d[ch] -= 1
+                if d[ch] == 0:
+                    c -= 1
+            r += 1
+            while c == 0:
+                res = min(res,r-l)
+                ch = s[l]
+                if ch in d:
+                    d[ch] += 1
+                    if d[ch] > 0:
+                        c += 1
+                l += 1
+        return res
