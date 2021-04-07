@@ -1,0 +1,17 @@
+class Solution:
+    def isValidSerialization(self, preorder: str) -> bool:
+        preorder = preorder.split(',')
+        
+        position = 1
+        
+        for node in preorder:
+            
+            if position == 0:
+                return False
+            
+            if node == '#':
+                position -= 1
+            
+            else:
+                position += 1
+        return position == 0
